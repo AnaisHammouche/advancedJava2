@@ -11,6 +11,7 @@ import java.io.FilenameFilter;
 public class MaFenetre extends JFrame {
     public MaFenetre(){
         super("Biblio.exe");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(650,350);
         JPanel panel = new JPanel();
         this.setContentPane(panel);
@@ -31,8 +32,6 @@ public class MaFenetre extends JFrame {
                 int retour = test.showOpenDialog(panel);
                 test.setVisible(true);
 
-
-
             }
         });
         JMenu editMenu = new JMenu();
@@ -42,6 +41,27 @@ public class MaFenetre extends JFrame {
         JMenu aboutMenu = new JMenu();
         aboutMenu.setText("About");
         menuBar.add(aboutMenu);
+        Object [] [] donnees = {
+
+                {"Harry Potter","J.K Rowling","",5,2,2009},
+                {"Eragon","C.Paolini","Un monde de dragon",2,2,2000},
+
+        };
+
+        String[] entetes = {"Name","Auteur","Résumé","Colonne","Rangees","Parution"};
+
+        JTable montableau = new JTable(donnees,entetes);
+
+        getContentPane().add(montableau.getTableHeader());
+        getContentPane().add(montableau);
+
+        JButton buttonPlus = new JButton("Add");
+        panel.add(buttonPlus);
+        JButton buttonSup = new JButton("Sup");
+        panel.add(buttonSup);
+
+        JButton buttonValider = new JButton("Valider");
+        panel.add(buttonValider);
 
         JLabel label1 = new JLabel("Titre");
         JLabel label2 = new JLabel("Auteur");
@@ -77,6 +97,7 @@ public class MaFenetre extends JFrame {
         panel.add(label6);
         panel.add(textArea);
 
+        panel.add(buttonValider);
 
     }
 }
