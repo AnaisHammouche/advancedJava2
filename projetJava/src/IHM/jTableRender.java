@@ -14,7 +14,7 @@ public class jTableRender extends DefaultTableCellRenderer {
             component.setBackground(Color.WHITE);
         }
 
-
+        component.setForeground(Color.BLACK);
 
 
         return component;
