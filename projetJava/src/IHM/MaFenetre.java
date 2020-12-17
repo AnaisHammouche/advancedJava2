@@ -36,9 +36,13 @@ public class MaFenetre extends JFrame {
                 test.setFileFilter(filter);
                 int retour = test.showOpenDialog(panel);
                 test.setVisible(true);
-                File fText = test.getSelectedFile();
-                fText = fText.getAbsoluteFile();
-                System.out.println(fText);
+                if(retour == 0){
+                    File fText = test.getSelectedFile();
+                    fText = fText.getAbsoluteFile();
+                }
+
+
+
 
 
 
