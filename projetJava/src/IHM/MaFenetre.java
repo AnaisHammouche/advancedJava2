@@ -1,5 +1,6 @@
 package IHM;
 
+import javax.security.auth.login.AccountExpiredException;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +21,7 @@ public class MaFenetre extends JFrame {
         this.setContentPane(panel);
         JMenuBar menuBar = new JMenuBar();
         this.setJMenuBar(menuBar);
-        JMenu fileMenu = new JMenu("file");
+        JMenu fileMenu = new JMenu("Fichier");
         menuBar.add(fileMenu);
 
         GridBagLayout layout = new GridBagLayout();
@@ -82,25 +83,47 @@ public class MaFenetre extends JFrame {
         JFileChooser test2 = new JFileChooser();
         JMenuItem newsMenu = new JMenuItem("Nouveautés");
         fileMenu.add(newsMenu);
+
+
         newsMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
+                int goodYear = 2008;
+                String message2 = "Livres & Auteurs parus depuis 2008 \n";
+                ArrayList array = new ArrayList();
+
+                int c = 0;
+                for (c = 0; c < bib.getBib().length; c++) {
+                    int a = bib.getBib()[c].getParution();
+                    String name = bib.getBib()[c].getName();
+                    String auteur = bib.getBib()[c].getAuteur();
+
+                    if ( a >= goodYear) {
+                        array.add(name + " " + auteur);
+                    }
+                }
+
+                int d = 0;
+                for (d= 0; d <array.size(); d++){
+
+                    message2 = message2 + array.get(d) + "\n";
+                }
+
                 JOptionPane dialogue = new JOptionPane();
-                dialogue.showMessageDialog(newsMenu, "Livres & Auteurs parus depuis 2008 ", "Nouveautées", JOptionPane.INFORMATION_MESSAGE);
-                // newsMenu.getActionListeners();
-                // newsMenu.getText();
-            }
+                dialogue.showMessageDialog(panel, message2, "Nouveautés", JOptionPane.INFORMATION_MESSAGE);
+
+        }
         });
 
 
-
-        JMenu editMenu = new JMenu("Edit");
+        JMenu editMenu = new JMenu("Éditer");
         menuBar.add(editMenu);
         JMenuItem raz = new JMenuItem("RAZ");
         editMenu.add(raz);
 
-        JMenu aboutMenu = new JMenu("About");
+        JMenu aboutMenu = new JMenu("À propos");
         menuBar.add(aboutMenu);
         JMenuItem info = new JMenuItem("À propos");
         aboutMenu.add(info);
@@ -124,8 +147,7 @@ public class MaFenetre extends JFrame {
         };
 
 
-
-        String[] entetes = {"Name","Auteur","Résumé","Colonne","Rangees","Parution"};
+        String[] entetes = {"Nom","Auteur","Résumé","Colonne","Rangée","Parution"};
 
         DefaultTableModel model = new DefaultTableModel(entetes, 0);
 
@@ -161,13 +183,13 @@ public class MaFenetre extends JFrame {
 
         getContentPane().add(montableau.getTableHeader(),gbc);
 
-        JButton buttonPlus = new JButton("Add");
+        JButton buttonPlus = new JButton("Ajouter");
         gbc.gridx = 5;
         gbc.gridy = 6;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         panel.add(buttonPlus,gbc);
-        JButton buttonSup = new JButton("Sup");
+        JButton buttonSup = new JButton("Supprimer");
         gbc.gridx = 6;
         gbc.gridy = 6;
         panel.add(buttonSup,gbc);
