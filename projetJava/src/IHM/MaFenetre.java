@@ -352,24 +352,23 @@ public class MaFenetre extends JFrame {
                     int rangee = Integer.parseInt(textField5.getText());
                     String resume = textArea.getText();
 
+
                     if (isModification==false) {
                         livre livre = new livre(titre, auteur, resume, colonne, rangee, parution);
                         bib.addBook(livre);
-                        String[] donne = new String[6];
-                        for (int o = 0; o < bib.getBib().length; o++) {
-                            donne[0] = bib.getBib()[o].getName();
-                            donne[1] = bib.getBib()[o].getAuteur();
-                            donne[2] = bib.getBib()[o].getResume();
-                            donne[3] = Integer.toString(bib.getBib()[o].getColonnes());
-                            donne[4] = Integer.toString(bib.getBib()[o].getLigne());
-                            donne[5] = Integer.toString(bib.getBib()[o].getParution());
-                        }
-                        model.addRow(donne);
+                        Display(bib,model);
+
                     }
                     else{
                         bib.getBib()[montableau.getSelectedRow()] = new livre(titre, auteur, resume, colonne, rangee, parution);
-                        model.removeRow(montableau.getSelectedRow());
-                        Display(bib, model);
+                        //model.removeRow(montableau.getSelectedRow());
+                        montableau.setValueAt(bib.getBib()[montableau.getSelectedRow()].getName(),montableau.getSelectedRow(),0);
+                        montableau.setValueAt(bib.getBib()[montableau.getSelectedRow()].getAuteur(),montableau.getSelectedRow(),1);
+                        montableau.setValueAt(bib.getBib()[montableau.getSelectedRow()].getResume(),montableau.getSelectedRow(),2);
+                        montableau.setValueAt(bib.getBib()[montableau.getSelectedRow()].getColonnes(),montableau.getSelectedRow(),3);
+                        montableau.setValueAt(bib.getBib()[montableau.getSelectedRow()].getLigne(),montableau.getSelectedRow(),4);
+                        montableau.setValueAt(bib.getBib()[montableau.getSelectedRow()].getParution(),montableau.getSelectedRow(),5);
+
                         montableau.clearSelection();
                         isModification = false ;
                     }
@@ -411,6 +410,7 @@ public class MaFenetre extends JFrame {
             donne[5] = Integer.toString(bib.getBib()[o].getParution());
 
         }
+
         model.addRow(donne);
 
 

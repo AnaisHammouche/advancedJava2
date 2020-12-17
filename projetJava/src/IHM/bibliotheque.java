@@ -30,7 +30,7 @@ public class bibliotheque {
 
 
         bib = blabla;
-        System.out.println(bib);
+
     }
 
     public void remove(){
