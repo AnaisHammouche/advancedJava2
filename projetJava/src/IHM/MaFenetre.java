@@ -2,6 +2,7 @@ package IHM;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
@@ -60,6 +61,7 @@ public class MaFenetre extends JFrame {
                 }
             }
         });
+
         JMenu editMenu = new JMenu("Edit");
         menuBar.add(editMenu);
         JMenuItem raz = new JMenuItem("RAZ");
@@ -88,7 +90,8 @@ public class MaFenetre extends JFrame {
         livres.add(d);
         String[] entetes = {"Name","Auteur","Résumé","Colonne","Rangees","Parution"};
 
-        JTable montableau = new JTable(donnees,entetes);
+        DefaultTableModel model = new DefaultTableModel(entetes, 0);
+        JTable montableau = new JTable(model);
         montableau.setDefaultRenderer(Object.class, new jTableRender());
 
         raz.addActionListener(new ActionListener() {
@@ -195,6 +198,8 @@ public class MaFenetre extends JFrame {
         getContentPane().add(montableau,gbc);
 
 
+
+
         textField1.setEditable(false);
         textField2.setEditable(false);
         textField3.setEditable(false);
@@ -267,6 +272,16 @@ public class MaFenetre extends JFrame {
                     i++;
                 }
                 if (i == 0){
+                    model.addRow(
+                            new Object[]{
+                                    textField1.getText(),
+                                    textField2.getText(),
+                                    textField3.getText(),
+                                    textField4.getText(),
+                                    textField5.getText(),
+                                    textArea.getText(),
+                            }
+                    );
                     textField1.setEditable(false);
                     textField2.setEditable(false);
                     textField3.setEditable(false);
