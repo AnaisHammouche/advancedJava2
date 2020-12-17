@@ -82,7 +82,7 @@ public class MaFenetre extends JFrame {
         Object [] [] donnees = {
 
                 {"Harry Potter","J.K Rowling","",5,2,2009},
-                {"Eragon","C.Paolini","Un monde de dragon",2,2,2000},
+                {"Eragon","C.Paolini","Un monde de dragon",2,"",2000},
 
         };
 
@@ -114,8 +114,7 @@ public class MaFenetre extends JFrame {
         });
 
 
-
-
+        test.setBackground(Color.BLUE);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 12;
@@ -323,6 +322,13 @@ public class MaFenetre extends JFrame {
                 System.out.println("");
             }
         });
+
+        montableau.getSelectedRow();
+        textField1.setText(montableau);
+
+        
+
+
 
 
 
