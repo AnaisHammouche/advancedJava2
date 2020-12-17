@@ -4,13 +4,10 @@ import javax.security.auth.login.AccountExpiredException;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -32,18 +29,35 @@ public class MaFenetre extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        bibiotheque bib = new bibiotheque();
+        bibliotheque bib = new bibliotheque();
 
-        JMenuItem fichier = new JMenuItem("Ouvrir");
+        JMenuItem fichier = new JMenuItem("Ouvrir...");
+        JMenuItem stat = new JMenuItem("stat");
         JMenuItem quitter = new JMenuItem("Quitter");
 
         fileMenu.add(fichier);
+        fileMenu.add(stat);
         fileMenu.add(quitter);
+
+        stat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] result = bib.search2A();
+                JOptionPane msg = new JOptionPane();
+                int taille = result.length;
+                String message = "Voici les livres qui possede un a en deuxieme position:\n";
+                for(int u = 0;u<taille;u++){
+                    message = message + result[0]+ "\n";
+                }
+                msg.showMessageDialog(panel,message);
+            }
+        });
 
         quitter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+
             }
         });
 
@@ -125,20 +139,13 @@ public class MaFenetre extends JFrame {
         menuBar.add(editMenu);
         menuBar.add(aboutMenu);
         aboutMenu.add(info);
-        info.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane msg = new JOptionPane();
-                msg.showMessageDialog(panel,"A propos:\nVersions: Alpha\nDev: Anais,Léonard,Mathieu,Alban");
-            }
-        });
+
         Object [] [] donnees = {
 
                 {"Harry Potter","J.K Rowling","",5,2,2009},
                 {"Eragon","C.Paolini","Un monde de dragon",2,2,2000},
         };
 
-        ArrayList livres = new ArrayList();
 
         String[] entetes = {"Nom","Auteur","Résumé","Colonne","Rangée","Parution"};
 
@@ -153,13 +160,14 @@ public class MaFenetre extends JFrame {
         };
 
         montableau.setDefaultRenderer(Object.class, new jTableRender());
-
+        
         raz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int i = 0;i < donnees.length;i++){
+                bib.remove();
 
-
+                for(int y = 0;y<=model.getRowCount();y++){
+                    model.removeRow(y);
                 }
 
             }
@@ -279,6 +287,8 @@ public class MaFenetre extends JFrame {
                 buttonValider.setEnabled(true);
             }
         });
+
+
         buttonValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -343,18 +353,7 @@ public class MaFenetre extends JFrame {
 
                     livre livre = new livre(titre,auteur,resume,colonne,rangee,parution);
                     bib.addBook(livre);
-                    String[] donne = new String[6];
-                    Object[] toto = bib.getBib();
-                    for(int o = 0;o<bib.getBib().length;o++){
-                        donne[0] = bib.getBib()[o].getName();
-                        donne[1] = bib.getBib()[o].getAuteur();
-                        donne[2] = bib.getBib()[o].getResume();
-                        donne[3] = Integer.toString(bib.getBib()[o].getColonnes());
-                        donne[4] = Integer.toString(bib.getBib()[o].getLigne());
-                        donne[5] = Integer.toString(bib.getBib()[o].getParution());
-
-                    }
-                    model.addRow(donne);
+                    Display(bib,model);
 
 
                     textField1.setEditable(false);
@@ -382,5 +381,28 @@ public class MaFenetre extends JFrame {
                     JOptionPane.showMessageDialog(buttonValider, " Merci de remplir toutes les cases ! ", "Erreur!", JOptionPane.ERROR_MESSAGE);
                 }
             }
+        });
+    }
 
-        });}}
+    private void Display(bibliotheque bib,DefaultTableModel model){
+        String[] donne = new String[6];
+        for(int o = 0;o<bib.getBib().length;o++){
+            donne[0] = bib.getBib()[o].getName();
+            donne[1] = bib.getBib()[o].getAuteur();
+            donne[2] = bib.getBib()[o].getResume();
+            donne[3] = Integer.toString(bib.getBib()[o].getColonnes());
+            donne[4] = Integer.toString(bib.getBib()[o].getLigne());
+            donne[5] = Integer.toString(bib.getBib()[o].getParution());
+
+        }
+        model.addRow(donne);
+
+
+    }
+
+
+
+
+
+}
+
