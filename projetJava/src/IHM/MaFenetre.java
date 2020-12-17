@@ -59,6 +59,7 @@ public class MaFenetre extends JFrame {
                     File fText = test.getSelectedFile();
                     fText = fText.getAbsoluteFile();
                 }
+
             }
         });
 
@@ -76,13 +77,31 @@ public class MaFenetre extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane msg = new JOptionPane();
                 msg.showMessageDialog(panel,"A propos:\nVersions: Alpha\nDev: Anais,Léonard,Mathieu,Alban");
+                if(retour == 0){
+                    File fText = test.getSelectedFile();
+                    fText = fText.getAbsoluteFile();
+                }
+            }
+        });
+        JMenu editMenu = new JMenu("Edit");
+
+        menuBar.add(editMenu);
+
+        JMenu aboutMenu = new JMenu("About");
+        menuBar.add(aboutMenu);
+        JMenuItem info = new JMenuItem("A propos");
+        aboutMenu.add(info);
+        info.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane msg = new JOptionPane();
+                msg.showMessageDialog(panel,"A propos:\nVersions: Alpha\nDev: Anais,Léonard,Mathieu,Alban");
             }
         });
         Object [] [] donnees = {
 
                 {"Harry Potter","J.K Rowling","",5,2,2009},
                 {"Eragon","C.Paolini","Un monde de dragon",2,2,2000},
-
         };
 
         ArrayList livres = new ArrayList();
@@ -115,7 +134,6 @@ public class MaFenetre extends JFrame {
 
 
         getContentPane().add(montableau.getTableHeader(),gbc);
-
 
         JButton buttonPlus = new JButton("Add");
         gbc.gridx = 5;
