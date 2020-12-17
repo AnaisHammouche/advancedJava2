@@ -16,4 +16,28 @@ public class livre {
         this.ligne = ligne;
         this.parution = parution;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public int getColonnes() {
+        return colonnes;
+    }
+
+    public int getLigne() {
+        return ligne;
+    }
+
+    public int getParution() {
+        return parution;
+    }
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MaFenetre extends JFrame {
+
     public MaFenetre(){
         super("Biblio.exe");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,7 +31,7 @@ public class MaFenetre extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-
+        bibiotheque bib = new bibiotheque();
 
         JMenuItem fichier = new JMenuItem("Ouvrir...");
         JMenuItem quitter = new JMenuItem("Quitter");
@@ -86,12 +87,19 @@ public class MaFenetre extends JFrame {
         };
 
         ArrayList livres = new ArrayList();
-        livre d = new livre("Eragon","Paolini","meilleur livre",0,0,2000);
-        livres.add(d);
+
         String[] entetes = {"Name","Auteur","Résumé","Colonne","Rangees","Parution"};
 
         DefaultTableModel model = new DefaultTableModel(entetes, 0);
-        JTable montableau = new JTable(model);
+
+
+
+        JTable montableau = new JTable(model){
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+
         montableau.setDefaultRenderer(Object.class, new jTableRender());
 
         raz.addActionListener(new ActionListener() {
@@ -271,17 +279,33 @@ public class MaFenetre extends JFrame {
                     System.out.println("Ajouter un résumé");
                     i++;
                 }
-                if (i == 0){
-                    model.addRow(
-                            new Object[]{
-                                    textField1.getText(),
-                                    textField2.getText(),
-                                    textField3.getText(),
-                                    textField4.getText(),
-                                    textField5.getText(),
-                                    textArea.getText(),
-                            }
-                    );
+                if (i == 0) {
+
+
+                    String titre = textField1.getText();
+                    String auteur = textField2.getText();
+                    int parution = Integer.parseInt(textField3.getText());
+                    int colonne = Integer.parseInt(textField4.getText());
+                    int rangee = Integer.parseInt(textField5.getText());
+                    String resume = textArea.getText();
+
+
+                    livre livre = new livre(titre,auteur,resume,colonne,rangee,parution);
+                    bib.addBook(livre);
+                    String[] donne = new String[6];
+                    Object[] toto = bib.getBib();
+                    for(int o = 0;o<bib.getBib().length;o++){
+                        donne[0] = bib.getBib()[o].getName();
+                        donne[1] = bib.getBib()[o].getAuteur();
+                        donne[2] = bib.getBib()[o].getResume();
+                        donne[3] = Integer.toString(bib.getBib()[o].getColonnes());
+                        donne[4] = Integer.toString(bib.getBib()[o].getLigne());
+                        donne[5] = Integer.toString(bib.getBib()[o].getParution());
+
+                    }
+                    model.addRow(donne);
+
+
                     textField1.setEditable(false);
                     textField2.setEditable(false);
                     textField3.setEditable(false);
