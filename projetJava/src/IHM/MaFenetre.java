@@ -19,8 +19,7 @@ public class MaFenetre extends JFrame {
         this.setContentPane(panel);
         JMenuBar menuBar = new JMenuBar();
         this.setJMenuBar(menuBar);
-        JMenu fileMenu = new JMenu();
-        fileMenu.setText("File");
+        JMenu fileMenu = new JMenu("file");
         menuBar.add(fileMenu);
 
         GridBagLayout layout = new GridBagLayout();
@@ -28,9 +27,24 @@ public class MaFenetre extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        JFileChooser test = new JFileChooser();
+
+
         JMenuItem fichier = new JMenuItem("Ouvrir...");
+        JMenuItem quitter = new JMenuItem("Quitter");
+
         fileMenu.add(fichier);
+        fileMenu.add(quitter);
+
+        quitter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+
+
+        JFileChooser test = new JFileChooser();
         fichier.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,13 +64,21 @@ public class MaFenetre extends JFrame {
 
             }
         });
-        JMenu editMenu = new JMenu();
-        editMenu.setText("Edit");
+        JMenu editMenu = new JMenu("Edit");
+
         menuBar.add(editMenu);
 
-        JMenu aboutMenu = new JMenu();
-        aboutMenu.setText("About");
+        JMenu aboutMenu = new JMenu("About");
         menuBar.add(aboutMenu);
+        JMenuItem info = new JMenuItem("A propos");
+        aboutMenu.add(info);
+        info.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane msg = new JOptionPane();
+                msg.showMessageDialog(panel,"A propos:\nVersions: Alpha\nDev: Anais,Léonard,Mathieu,Alban");
+            }
+        });
         Object [] [] donnees = {
 
                 {"Harry Potter","J.K Rowling","",5,2,2009},
@@ -67,14 +89,13 @@ public class MaFenetre extends JFrame {
         String[] entetes = {"Name","Auteur","Résumé","Colonne","Rangees","Parution"};
 
         JTable montableau = new JTable(donnees,entetes);
-        TableCellRenderer dd =  montableau.getCellRenderer(0,0);
         montableau.setDefaultRenderer(Object.class, new jTableRender());
 
 
 
 
 
-        test.setBackground(Color.BLUE);
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 12;
