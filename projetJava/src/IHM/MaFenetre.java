@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Calendar;
 
 public class MaFenetre extends JFrame {
     public MaFenetre(){
@@ -56,12 +57,6 @@ public class MaFenetre extends JFrame {
                     File fText = test.getSelectedFile();
                     fText = fText.getAbsoluteFile();
                 }
-
-
-
-
-
-
             }
         });
         JMenu editMenu = new JMenu("Edit");
@@ -107,13 +102,13 @@ public class MaFenetre extends JFrame {
 
         JButton buttonPlus = new JButton("Add");
         gbc.gridx = 5;
-        gbc.gridy = 7;
+        gbc.gridy = 6;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         panel.add(buttonPlus,gbc);
         JButton buttonSup = new JButton("Sup");
         gbc.gridx = 6;
-        gbc.gridy = 7;
+        gbc.gridy = 6;
         panel.add(buttonSup,gbc);
 
         JButton buttonValider = new JButton("Valider");
@@ -137,7 +132,7 @@ public class MaFenetre extends JFrame {
         JTextField textField5 = new JTextField();
         textField5.setPreferredSize(new Dimension(100,25));
         JTextArea textArea = new JTextArea();
-        textArea.setPreferredSize(new Dimension(100,150));
+        textArea.setPreferredSize(new Dimension(95,150));
 
 
         gbc.gridx = 13;
@@ -167,8 +162,9 @@ public class MaFenetre extends JFrame {
         gbc.gridy = 4;
         panel.add(textField5,gbc);
         gbc.gridy = 5;
+        gbc.gridheight = 2;
         panel.add(textArea,gbc);
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         panel.add(buttonValider,gbc);
 
         gbc.gridx = 13;
@@ -181,7 +177,100 @@ public class MaFenetre extends JFrame {
         gbc.gridwidth = 12;
         gbc.gridheight = 6;
         gbc.fill = GridBagConstraints.VERTICAL;
+
         getContentPane().add(montableau,gbc);
+
+
+        textField1.setEditable(false);
+        textField2.setEditable(false);
+        textField3.setEditable(false);
+        textField4.setEditable(false);
+        textField5.setEditable(false);
+        textArea.setEditable(false);
+        buttonValider.setEnabled(false);
+
+        buttonPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textField1.setEditable(true);
+                textField2.setEditable(true);
+                textField3.setEditable(true);
+                textField4.setEditable(true);
+                textField5.setEditable(true);
+                textArea.setEditable(true);
+                buttonValider.setEnabled(true);
+            }
+        });
+        buttonValider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int i = 0;
+                Calendar c = Calendar.getInstance();
+                int annee = c.get(Calendar.YEAR);
+
+                if (textField1.getText().equals("")){
+                    System.out.println("Ajouter un titre");
+                    i++;
+                }
+                if (textField2.getText().equals("")){
+                    System.out.println("Ajouter un auteur");
+                    i++;
+                }
+                try {
+                    if (Integer.parseInt(textField3.getText()) > annee){
+                        System.out.println("Annee de parution non valide (max = "+ annee +")");
+                        i++;
+                    }
+                }
+                catch (NumberFormatException exception){
+                    System.out.println("Ajouter une parution valide");
+                    i++;
+                }
+                try {
+                    if (Integer.parseInt(textField4.getText()) < 1 ||Integer.parseInt(textField4.getText()) > 5){
+                        System.out.println("Nombre de colonne non valide (min = 1 et max = 5)");
+                        i++;
+                    }
+                }
+                catch (NumberFormatException exception){
+                    System.out.println("Ajouter une colonne valide");
+                    i++;
+                }
+                try {
+                    if (Integer.parseInt(textField5.getText()) < 1 ||Integer.parseInt(textField5.getText()) > 7){
+                        System.out.println("Nombre de rangée non valide (min = 1 et max = 7)");
+                        i++;
+                    }
+                }
+                catch (NumberFormatException exception){
+                    System.out.println("Ajouter une rangéé valide");
+                    i++;
+                }
+
+
+                if (textArea.getText().equals("")){
+                    System.out.println("Ajouter un résumé");
+                    i++;
+                }
+                if (i == 0){
+                    textField1.setEditable(false);
+                    textField2.setEditable(false);
+                    textField3.setEditable(false);
+                    textField4.setEditable(false);
+                    textField5.setEditable(false);
+                    textArea.setEditable(false);
+                    buttonValider.setEnabled(false);
+                    textField1.setText("");
+                    textField2.setText("");
+                    textField3.setText("");
+                    textField4.setText("");
+                    textField5.setText("");
+                    textArea.setText("");
+                }
+                System.out.println("");
+            }
+        });
+
 
 
 
