@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Calendar;
 
 public class MaFenetre extends JFrame {
     public MaFenetre(){
@@ -204,6 +205,9 @@ public class MaFenetre extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int i = 0;
+                Calendar c = Calendar.getInstance();
+                int annee = c.get(Calendar.YEAR);
+
                 if (textField1.getText().equals("")){
                     System.out.println("Ajouter un titre");
                     i++;
@@ -212,8 +216,14 @@ public class MaFenetre extends JFrame {
                     System.out.println("Ajouter un auteur");
                     i++;
                 }
-                if (textField3.getText().equals("")){
-                    System.out.println("Ajouter une parution");
+                try {
+                    if (Integer.parseInt(textField3.getText()) > annee){
+                        System.out.println("Annee de parution non valide (max = "+ annee +")");
+                        i++;
+                    }
+                }
+                catch (NumberFormatException exception){
+                    System.out.println("Ajouter une parution valide");
                     i++;
                 }
                 try {
