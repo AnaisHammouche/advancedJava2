@@ -3,13 +3,10 @@ package IHM;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -31,7 +28,7 @@ public class MaFenetre extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        bibiotheque bib = new bibiotheque();
+        bibliotheque bib = new bibliotheque();
 
         JMenuItem fichier = new JMenuItem("Ouvrir...");
         JMenuItem quitter = new JMenuItem("Quitter");
@@ -86,7 +83,7 @@ public class MaFenetre extends JFrame {
 
         };
 
-        ArrayList livres = new ArrayList();
+
 
         String[] entetes = {"Name","Auteur","Résumé","Colonne","Rangees","Parution"};
 
@@ -105,10 +102,7 @@ public class MaFenetre extends JFrame {
         raz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int i = 0;i < donnees.length;i++){
-
-
-                }
+                
 
             }
         });
@@ -228,6 +222,8 @@ public class MaFenetre extends JFrame {
                 buttonValider.setEnabled(true);
             }
         });
+
+
         buttonValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -292,18 +288,7 @@ public class MaFenetre extends JFrame {
 
                     livre livre = new livre(titre,auteur,resume,colonne,rangee,parution);
                     bib.addBook(livre);
-                    String[] donne = new String[6];
-                    Object[] toto = bib.getBib();
-                    for(int o = 0;o<bib.getBib().length;o++){
-                        donne[0] = bib.getBib()[o].getName();
-                        donne[1] = bib.getBib()[o].getAuteur();
-                        donne[2] = bib.getBib()[o].getResume();
-                        donne[3] = Integer.toString(bib.getBib()[o].getColonnes());
-                        donne[4] = Integer.toString(bib.getBib()[o].getLigne());
-                        donne[5] = Integer.toString(bib.getBib()[o].getParution());
-
-                    }
-                    model.addRow(donne);
+                    Display(bib,model);
 
 
                     textField1.setEditable(false);
@@ -327,5 +312,18 @@ public class MaFenetre extends JFrame {
 
 
 
+    }
+    private void Display(bibliotheque bib,DefaultTableModel model){
+        String[] donne = new String[6];
+        for(int o = 0;o<bib.getBib().length;o++){
+            donne[0] = bib.getBib()[o].getName();
+            donne[1] = bib.getBib()[o].getAuteur();
+            donne[2] = bib.getBib()[o].getResume();
+            donne[3] = Integer.toString(bib.getBib()[o].getColonnes());
+            donne[4] = Integer.toString(bib.getBib()[o].getLigne());
+            donne[5] = Integer.toString(bib.getBib()[o].getParution());
+
+        }
+        model.addRow(donne);
     }
 }
