@@ -138,7 +138,7 @@ public class MaFenetre extends JFrame {
         };
 
         montableau.setDefaultRenderer(Object.class, new jTableRender());
-
+        
         raz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
