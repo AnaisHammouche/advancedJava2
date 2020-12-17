@@ -63,6 +63,23 @@ public class MaFenetre extends JFrame {
             }
         });
 
+
+        JFileChooser test2 = new JFileChooser();
+        JMenuItem newsMenu = new JMenuItem("Nouveautés");
+        fileMenu.add(newsMenu);
+        newsMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JOptionPane dialogue = new JOptionPane();
+                dialogue.showMessageDialog(newsMenu, "Livres & Auteurs parus depuis 2008 ", "Nouveautées", JOptionPane.INFORMATION_MESSAGE);
+                // newsMenu.getActionListeners();
+                // newsMenu.getText();
+            }
+        });
+
+
+
         JMenu editMenu = new JMenu("Edit");
         menuBar.add(editMenu);
         JMenuItem raz = new JMenuItem("RAZ");
@@ -70,26 +87,19 @@ public class MaFenetre extends JFrame {
 
         JMenu aboutMenu = new JMenu("About");
         menuBar.add(aboutMenu);
-        JMenuItem info = new JMenuItem("A propos");
+        JMenuItem info = new JMenuItem("À propos");
         aboutMenu.add(info);
         info.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane msg = new JOptionPane();
-                msg.showMessageDialog(panel,"A propos:\nVersions: Alpha\nDev: Anais,Léonard,Mathieu,Alban");
-                if(retour == 0){
-                    File fText = test.getSelectedFile();
-                    fText = fText.getAbsoluteFile();
-                }
+                msg.showMessageDialog(panel,"À propos:\nVersions: Alpha\nDev: Anais,Léonard,Mathieu,Alban");
+
             }
         });
-        JMenu editMenu = new JMenu("Edit");
 
         menuBar.add(editMenu);
-
-        JMenu aboutMenu = new JMenu("About");
         menuBar.add(aboutMenu);
-        JMenuItem info = new JMenuItem("A propos");
         aboutMenu.add(info);
         info.addActionListener(new ActionListener() {
             @Override
@@ -280,7 +290,7 @@ public class MaFenetre extends JFrame {
                     }
                 }
                 catch (NumberFormatException exception){
-                    System.out.println("Ajouter une rangéé valide");
+                    System.out.println("Ajouter une rangée valide");
                     i++;
                 }
 
@@ -318,8 +328,12 @@ public class MaFenetre extends JFrame {
             }
         });
 
+        buttonValider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (textArea.getText().equals("")) {
+                    JOptionPane.showMessageDialog(buttonValider, " Merci de remplir toutes les cases ! ", "Erreur!", JOptionPane.ERROR_MESSAGE);
+                }
+            }
 
-
-
-    }
-}
+        });}}
