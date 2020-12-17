@@ -31,15 +31,32 @@ public class MaFenetre extends JFrame {
         bibliotheque bib = new bibliotheque();
 
         JMenuItem fichier = new JMenuItem("Ouvrir...");
+        JMenuItem stat = new JMenuItem("stat");
         JMenuItem quitter = new JMenuItem("Quitter");
 
         fileMenu.add(fichier);
+        fileMenu.add(stat);
         fileMenu.add(quitter);
+
+        stat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] result = bib.search2A();
+                JOptionPane msg = new JOptionPane();
+                int taille = result.length;
+                String message = "Voici les livres qui possede un a en deuxieme position:\n";
+                for(int u = 0;u<taille;u++){
+                    message = message + result[0]+ "\n";
+                }
+                msg.showMessageDialog(panel,message);
+            }
+        });
 
         quitter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+
             }
         });
 
@@ -99,13 +116,7 @@ public class MaFenetre extends JFrame {
         menuBar.add(editMenu);
         menuBar.add(aboutMenu);
         aboutMenu.add(info);
-        info.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane msg = new JOptionPane();
-                msg.showMessageDialog(panel,"A propos:\nVersions: Alpha\nDev: Anais,Léonard,Mathieu,Alban");
-            }
-        });
+
         Object [] [] donnees = {
 
                 {"Harry Potter","J.K Rowling","",5,2,2009},
@@ -127,7 +138,7 @@ public class MaFenetre extends JFrame {
         };
 
         montableau.setDefaultRenderer(Object.class, new jTableRender());
-        
+
         raz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

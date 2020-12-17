@@ -41,8 +41,31 @@ public class bibliotheque {
         return bib;
     }
 
-    public void setBib(livre[] bib) {
-        this.bib = bib;
+    public String[] search2A(){
+        String[] a = new String[0];
+
+        for(int b = 0;b<bib.length;b++){
+            int taille = a.length;
+            String verif = bib[b].getName();
+            int index = verif.indexOf("a");
+            System.out.println(index);
+            if(index == 1){
+                String[] f = new String[taille+1];
+                for(int c = 0;c<taille;c++){
+                    f[c] = a[c];
+                }
+                f[taille] = verif;
+                a = f;
+            }
+
+        }
+
+        return a;
     }
+
+
+
+
+
 }
 
