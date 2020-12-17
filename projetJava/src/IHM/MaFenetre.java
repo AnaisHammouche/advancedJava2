@@ -257,6 +257,7 @@ public class MaFenetre extends JFrame {
                     textField5.setText("");
                     textArea.setText("");
                 }
+                System.out.println("");
             }
         });
 
