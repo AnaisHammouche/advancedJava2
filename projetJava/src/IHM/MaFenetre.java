@@ -2,6 +2,8 @@ package IHM;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,8 +67,14 @@ public class MaFenetre extends JFrame {
         String[] entetes = {"Name","Auteur","Résumé","Colonne","Rangees","Parution"};
 
         JTable montableau = new JTable(donnees,entetes);
+        TableCellRenderer dd =  montableau.getCellRenderer(0,0);
+        montableau.setDefaultRenderer(Object.class, new jTableRender());
 
 
+
+
+
+        test.setBackground(Color.BLUE);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 12;
