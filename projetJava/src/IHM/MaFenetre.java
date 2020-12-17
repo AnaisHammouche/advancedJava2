@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MaFenetre extends JFrame {
@@ -60,8 +61,9 @@ public class MaFenetre extends JFrame {
             }
         });
         JMenu editMenu = new JMenu("Edit");
-
         menuBar.add(editMenu);
+        JMenuItem raz = new JMenuItem("RAZ");
+        editMenu.add(raz);
 
         JMenu aboutMenu = new JMenu("About");
         menuBar.add(aboutMenu);
@@ -81,12 +83,24 @@ public class MaFenetre extends JFrame {
 
         };
 
+        ArrayList livres = new ArrayList();
+        livre d = new livre("Eragon","Paolini","meilleur livre",0,0,2000);
+        livres.add(d);
         String[] entetes = {"Name","Auteur","Résumé","Colonne","Rangees","Parution"};
 
         JTable montableau = new JTable(donnees,entetes);
         montableau.setDefaultRenderer(Object.class, new jTableRender());
 
+        raz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0;i < donnees.length;i++){
 
+
+                }
+
+            }
+        });
 
 
 
