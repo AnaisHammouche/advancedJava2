@@ -65,8 +65,9 @@ public class MaFenetre extends JFrame {
             }
         });
         JMenu editMenu = new JMenu("Edit");
-
         menuBar.add(editMenu);
+        JMenuItem raz = new JMenuItem("RAZ");
+        editMenu.add(raz);
 
         JMenu aboutMenu = new JMenu("About");
         menuBar.add(aboutMenu);
@@ -91,7 +92,22 @@ public class MaFenetre extends JFrame {
         JTable montableau = new JTable(donnees,entetes);
         montableau.setDefaultRenderer(Object.class, new jTableRender());
 
+        raz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0;i < donnees.length;i++){
 
+                    gbc.gridx = 0;
+                    gbc.gridy = 0;
+                    gbc.gridwidth = 12;
+                    gbc.gridheight = 1;
+
+
+                    getContentPane().add(montableau.getTableHeader(),gbc);
+                }
+
+            }
+        });
 
 
 
