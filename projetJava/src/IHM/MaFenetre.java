@@ -57,8 +57,26 @@ public class MaFenetre extends JFrame {
                     File fText = test.getSelectedFile();
                     fText = fText.getAbsoluteFile();
                 }
+
             }
         });
+
+
+        JFileChooser test2 = new JFileChooser();
+        JMenuItem newsMenu = new JMenuItem("Nouveautés");
+        fileMenu.add(newsMenu);
+        newsMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JOptionPane dialogue = new JOptionPane();
+                dialogue.showMessageDialog(newsMenu, "Livres & Auteurs parus depuis 2008 ", "Nouveautées", JOptionPane.INFORMATION_MESSAGE);
+                // newsMenu.getActionListeners();
+                // newsMenu.getText();
+            }
+        });
+
+
 
         JMenu editMenu = new JMenu("Edit");
         menuBar.add(editMenu);
@@ -67,7 +85,19 @@ public class MaFenetre extends JFrame {
 
         JMenu aboutMenu = new JMenu("About");
         menuBar.add(aboutMenu);
-        JMenuItem info = new JMenuItem("A propos");
+        JMenuItem info = new JMenuItem("À propos");
+        aboutMenu.add(info);
+        info.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane msg = new JOptionPane();
+                msg.showMessageDialog(panel,"À propos:\nVersions: Alpha\nDev: Anais,Léonard,Mathieu,Alban");
+
+            }
+        });
+
+        menuBar.add(editMenu);
+        menuBar.add(aboutMenu);
         aboutMenu.add(info);
         info.addActionListener(new ActionListener() {
             @Override
@@ -80,7 +110,6 @@ public class MaFenetre extends JFrame {
 
                 {"Harry Potter","J.K Rowling","",5,2,2009},
                 {"Eragon","C.Paolini","Un monde de dragon",2,2,2000},
-
         };
 
 
@@ -98,11 +127,15 @@ public class MaFenetre extends JFrame {
         };
 
         montableau.setDefaultRenderer(Object.class, new jTableRender());
-
+        
         raz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                bib.remove();
+
+                for(int y = 0;y<=model.getRowCount();y++){
+                    model.removeRow(y);
+                }
 
             }
         });
@@ -117,7 +150,6 @@ public class MaFenetre extends JFrame {
 
 
         getContentPane().add(montableau.getTableHeader(),gbc);
-
 
         JButton buttonPlus = new JButton("Add");
         gbc.gridx = 5;
@@ -266,7 +298,7 @@ public class MaFenetre extends JFrame {
                     }
                 }
                 catch (NumberFormatException exception){
-                    System.out.println("Ajouter une rangéé valide");
+                    System.out.println("Ajouter une rangée valide");
                     i++;
                 }
 
@@ -309,10 +341,16 @@ public class MaFenetre extends JFrame {
             }
         });
 
-
-
-
+        buttonValider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (textArea.getText().equals("")) {
+                    JOptionPane.showMessageDialog(buttonValider, " Merci de remplir toutes les cases ! ", "Erreur!", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
     }
+
     private void Display(bibliotheque bib,DefaultTableModel model){
         String[] donne = new String[6];
         for(int o = 0;o<bib.getBib().length;o++){
@@ -325,5 +363,13 @@ public class MaFenetre extends JFrame {
 
         }
         model.addRow(donne);
+
+
     }
+
+
+
+
+
 }
+

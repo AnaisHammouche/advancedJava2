@@ -33,6 +33,10 @@ public class bibliotheque {
         System.out.println(bib);
     }
 
+    public void remove(){
+        bib = new livre[]{};
+    }
+
     public livre[] getBib() {
         return bib;
     }
