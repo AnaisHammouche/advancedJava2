@@ -33,7 +33,24 @@ public class bibliotheque {
 
     }
 
-    public void remove(){
+    public void remove(int nbRow){
+        livre[] dd = new livre[bib.length-1];
+        int compteur = 0;
+        int curseur = 0;
+        while (compteur != bib.length){
+            if(compteur != nbRow){
+                dd[curseur] = bib[compteur];
+                curseur++;
+            }
+            compteur++;
+
+        }
+
+
+
+
+
+
         bib = new livre[]{};
     }
 

@@ -35,10 +35,30 @@ public class MaFenetre extends JFrame {
         bibliotheque bib = new bibliotheque();
 
         JMenuItem fichier = new JMenuItem("Ouvrir...");
+        JMenuItem stat = new JMenuItem("stat");
         JMenuItem quitter = new JMenuItem("Quitter");
+        JMenuItem newsMenu = new JMenuItem("Nouveautés");
+
 
         fileMenu.add(fichier);
+        fileMenu.add(newsMenu);
+        fileMenu.add(stat);
         fileMenu.add(quitter);
+
+        stat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] result = bib.search2A();
+                JOptionPane msg = new JOptionPane();
+                int taille = result.length;
+                String message = "Voici les livres qui possede un a en deuxieme position:\n";
+                for(int u = 0;u<taille;u++){
+                    message = message + result[u]+ "\n";
+                }
+                msg.showMessageDialog(panel,message);
+            }
+        });
+
 
         quitter.addActionListener(new ActionListener() {
             @Override
@@ -65,9 +85,8 @@ public class MaFenetre extends JFrame {
         });
 
 
-        JFileChooser test2 = new JFileChooser();
-        JMenuItem newsMenu = new JMenuItem("Nouveautés");
-        fileMenu.add(newsMenu);
+
+
 
 
         newsMenu.addActionListener(new ActionListener() {
@@ -108,6 +127,7 @@ public class MaFenetre extends JFrame {
         JMenuItem raz = new JMenuItem("RAZ");
         editMenu.add(raz);
 
+
         JMenu aboutMenu = new JMenu("À propos");
         menuBar.add(aboutMenu);
         JMenuItem info = new JMenuItem("A propos");
@@ -126,13 +146,22 @@ public class MaFenetre extends JFrame {
 
         };
 
+
         ArrayList livres = new ArrayList();
 
         String[] entetes = {"Nom","Auteur","Résumé","Colonne","Rangée","Parution"};
 
         DefaultTableModel model = new DefaultTableModel(entetes, 0);
 
-
+        raz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                while(model.getRowCount()>=0){
+                    model.removeRow(model.getRowCount()-1);
+                    bib.remove(model.getRowCount());
+                }
+            }
+        });
 
         JTable montableau = new JTable(model){
             public boolean isCellEditable(int row, int column){
@@ -143,13 +172,7 @@ public class MaFenetre extends JFrame {
         montableau.getSelectedRow();
         montableau.setDefaultRenderer(Object.class, new jTableRender());
         
-        raz.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-
-            }
-        });
 
 
         test.setBackground(Color.BLUE);
@@ -171,7 +194,15 @@ public class MaFenetre extends JFrame {
         gbc.gridx = 6;
         gbc.gridy = 6;
         panel.add(buttonSup,gbc);
-
+        buttonSup.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.removeRow(montableau.getSelectedRow());
+                bib.remove(model.getRowCount());
+                montableau.clearSelection();
+                System.out.println(bib.getBib()[0].getName());
+            }
+        });
         JButton buttonValider = new JButton("Valider");
 
 
@@ -275,17 +306,6 @@ public class MaFenetre extends JFrame {
                     textField5.setText(Integer.toString(bib.getBib()[montableau.getSelectedRow()].getLigne()));
                     textArea.setText(bib.getBib()[montableau.getSelectedRow()].getResume());
                     isModification = true ;
-                }
-            }
-        });
-
-
-
-        buttonSup.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (montableau.isRowSelected(montableau.getSelectedRow())){
-                    bib.getBib();
                 }
             }
         });
