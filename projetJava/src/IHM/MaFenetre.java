@@ -80,6 +80,7 @@ public class MaFenetre extends JFrame {
                 if(retour == 0){
                     File fText = test.getSelectedFile();
                     fText = fText.getAbsoluteFile();
+
                 }
             }
         });
@@ -156,9 +157,14 @@ public class MaFenetre extends JFrame {
         raz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                while(model.getRowCount()>=0){
-                    model.removeRow(model.getRowCount()-1);
-                    bib.remove(model.getRowCount());
+                while(model.getRowCount()!=0){
+                    try {
+                        model.removeRow(model.getRowCount() - 1);
+                        bib.remove(model.getRowCount());
+                    }
+                    catch (NegativeArraySizeException exception){
+
+                    }
                 }
             }
         });
@@ -201,6 +207,7 @@ public class MaFenetre extends JFrame {
                 bib.remove(model.getRowCount());
                 montableau.clearSelection();
                 System.out.println(bib.getBib()[0].getName());
+                System.out.println(bib.getBib()[1].getName());
             }
         });
         JButton buttonValider = new JButton("Valider");
